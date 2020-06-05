@@ -187,4 +187,39 @@ public class EstudianteMySQLDAO implements EstudianteDAO{
         }
         return respuesta;
     }
+    
+    public ArrayList<Estudiante> validarEstudiante(Estudiante p, Connection con)
+    {
+        
+        ArrayList<Estudiante> datos = new ArrayList();
+        
+        Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando validarEstudiante...");
+        
+        try {
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery ("SELECT e.codigo_estudiante"
+                    + " FROM estudiante e, estudiante_curso ec, curso c"
+                    + " WHERE e.codigo_estudiante = ec.codigo_estudiante"
+                    + " AND ec.codigo_curso = c.codigo_curso"
+                    + " AND e.codigo_estudiante = " + p.getCodigo_estudiante()
+                    + " AND c.codigo_curso = " + p.getEst_curso());
+           
+            
+            while (rs.next())
+            { 
+                Estudiante per = new Estudiante();
+                per.setCodigo_estudiante(rs.getString(1));                
+                
+                datos.add(per);    
+            }
+            
+            Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando validarEstudiante fin..." + datos.size());
+            
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return datos;
+    }
 }
