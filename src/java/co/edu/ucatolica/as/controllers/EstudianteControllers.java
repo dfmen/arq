@@ -248,7 +248,46 @@ public class EstudianteControllers implements Controller {
             model.put("mensaje", "No se pudo eliminar");
         
         return "persona_eliminar";
-    }  
+    } 
+    
+    @RequestMapping(method = RequestMethod.GET, value = "monitoriaValidar.htm")
+    public String processSubmit9(HttpServletRequest req, SessionStatus status,ModelMap model) 
+    {      
+        Logger.getLogger(EstudianteControllers.class.getName()).log(Level.INFO, "Ejecutando processSubmit9...");
+        return "monitoria";
+    } 
+    
+@RequestMapping(method = RequestMethod.POST, value = "monitoriaValidarForm.htm")
+    public String processSubmit10(HttpServletRequest req, SessionStatus status,ModelMap model) 
+    {
+
+        EstudianteMySQLDAO pDao = new EstudianteMySQLDAO();
+            
+        Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando processSubmit10...");
+        
+        String codigo = req.getParameter("codigo_estudiante");
+        String pass = req.getParameter("password");
+        String cod_cur = req.getParameter("codigo_curso");
+        
+        Estudiante p = new Estudiante();
+        
+        p.setCodigo_estudiante(codigo);
+        p.setPassword(pass);
+        p.setEst_curso(cod_cur);
+            
+        List<Estudiante> datos = pDao.validarEstudiante(p, MySqlDataSource.getConexionBD());
+
+        Logger.getLogger(EstudianteControllers.class.getName()).log(Level.SEVERE, null, "Validar + " + codigo + "-" + datos.size());
+        
+        model.put("listaEstudiantes", datos);
+        System.out.print("T datos:"+datos.size());
+        if (datos.size() > 0)
+            model.put("mensaje", "¡El estudiante es valido! [" + datos.size() + "]");
+        else
+            model.put("mensaje", "El estudiante NO es valido, intente el proximo semestre.");
+        
+        return "monitoria";
+    } 
 
     @Override
     public String value() {

@@ -23,6 +23,17 @@ public class Estudiante {
             String codigo_matricula = null;
             String codigo_contrato = null; 
             String codigo_programa = null;
+            //---MACHETE---//
+            String est_curso = null;
+            
+    public String getEst_curso() {
+        return est_curso;
+    }
+
+    public void setEst_curso(String est_curso) {
+        this.est_curso = est_curso;
+    }
+            
 
     public String getCodigo_estudiante() {
         return codigo_estudiante;

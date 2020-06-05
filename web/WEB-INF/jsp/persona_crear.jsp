@@ -75,7 +75,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="icon-bar"></span>
 					  </button>
 						<div class="w3layouts-logo">
-							<h1><a href="index.html">Hosting <span>City</span></a></h1>
+							<h1><a href="helloworld.html">Universidad Católica<span> de Colombia</span></a></h1>
 						</div>
 					</div>
 
@@ -84,8 +84,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<nav>
 							<ul class="nav navbar-nav">
 								<li><a href="helloworld.htm" class="hvr-sweep-to-bottom">Home</a></li>
-								<!--<li><a href="about.html" class="hvr-sweep-to-bottom">About</a></li>
-								<li><a href="plans.html" class="hvr-sweep-to-bottom">Plans</a></li>-->
+								<li><a href="monitoriaValidar.htm" class="hvr-sweep-to-bottom">Monitoria</a></li>
+								<!--<li><a href="plans.html" class="hvr-sweep-to-bottom">Plans</a></li>-->
 								<li class="active"><a href="#" class="dropdown-toggle hvr-sweep-to-bottom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Persona<span class="caret"></span></a>
 									<ul class="dropdown-menu">
 										<li><a class="hvr-sweep-to-bottom" href="personaCrear.htm">Crear</a></li>

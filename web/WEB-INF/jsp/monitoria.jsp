@@ -1,5 +1,4 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--A Design by W3layouts
 Author: W3layout
@@ -76,7 +75,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="icon-bar"></span>
 					  </button>
 						<div class="w3layouts-logo">
-							<h1><a href="helloworld.html">Universidad Cat�lica<span> de Colombia</span></a></h1>
+							<h1><a href="helloworld.html">Universidad Católica<span> de Colombia</span></a></h1>
 						</div>
 					</div>
 
@@ -107,58 +106,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- //header -->
 	<!-- about-heading -->
 	<div class="about-heading">
-		<h2>Consultar <span>Estudiante</span></h2>
+		<h2>Monitorias <span>2020</span></h2>
 	</div>
 	<!-- //about-heading -->
 	<div class="registration">
 		<div class="container">
 			<div class="signin-form profile">
-				<h3>:: Consultar ::</h3>
+				<h3>:: Validar Estudiante ::</h3>
 				
 				<div class="login-form">
-					<form action="personaConsultarForm.htm" method="post">
-                                            <input type="text" name="codigo_estudiante" placeholder="Codigo Estudiante" required>
-                                            <!--<input type="text" name="nombre1" placeholder="Nombre 1" required>-->
+					<form action="monitoriaValidarForm.htm" method="post">
+                                            <input type="text" name="codigo_estudiante" placeholder="Codigo Estudiante" required>                                            
+                                            <input type="text" name="password" placeholder="Contraseña LDAP" required="">
+                                            <input type="text" name="codigo_curso" placeholder="Codigo Materia" required="">
 
-                                            <input type="submit" value="CONSULTAR">
+                                            <input type="submit" value="VALIDAR">
 					</form>
 				</div>
 				<p>${mensaje}</p>
 			</div>
-                        <div class="table-responsive">                                                               
-                            <table id="tablaResultado" class="table table-striped table-hover table-bordered" >
-                                <thead>       
-                                    <tr>
-                                       <th>Identificaci�n</th>
-                                       <th>Nombre 1</th>
-                                       <th>Nombre 2</th>
-                                       <th>Apellido 1</th>
-                                       <th>Apellido 2</th>
-                                       <th>Genero</th>
-                                       <th>Tipo Persona</th>
-                                       <th>Fecha Nacimiento</th>
-                                       <th>Telefono</th>
-                                       <th>E-mail</th>                                                                             
-                                    </tr>
-                                </thead>                                        
-                                <tbody>
-                                <c:forEach var="p" items="${listaPersonas}">                                           
-                                    <tr>
-                                        <td>${p.getIdentificacion()}</td>
-                                        <td>${p.getNombre1()}</td>
-                                        <td>${p.getNombre2()}</td>
-                                        <td>${p.getApellido1()}</td>
-                                        <td>${p.getApellido2()}</td>
-                                        <td>${p.getGenero()}</td>
-                                        <td>${p.getTipoP()}</td>
-                                        <td>${p.getfNacimiento()}</td>
-                                        <td>${p.getTelef()}</td>
-                                        <td>${p.getEmail()}</td>                                        
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>                        
 		</div>
 	</div>
 	<!-- footer -->
@@ -230,7 +196,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 		<div class="copyright">
-			<p>© 2016 Hosting City. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+			<p>Â© 2016 Hosting City. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
 		</div>
 	</div>
 	<!-- //footer -->
