@@ -329,4 +329,35 @@ public class EstudianteMySQLDAO implements EstudianteDAO{
         
         return respuesta2;
     }
+    
+    public boolean crearContrato(Estudiante p, Connection con)
+    {
+        PreparedStatement pstmt = null;
+        boolean respuesta3 = false;
+        try {            
+            //Hola
+            Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando crearContrato...");
+            
+            pstmt = con.prepareStatement("INSERT INTO contrato "
+                    + " (codigo_estudiante, codigo_estudiante, salario, fecha_inicio, fecha_fin) "
+                    + " VALUES (?,?,?,?,?)");
+            
+            pstmt.setString(1, p.getCodigo_estudiante());            
+            pstmt.setString(2, "1000000");
+            pstmt.setString(3, "2020");
+            pstmt.setString(4, "2021");
+
+            pstmt.execute();
+            
+            con.close();
+            
+            respuesta3 = true;
+            Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando crearContrato fin...");
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return respuesta3;
+
+    }
 }

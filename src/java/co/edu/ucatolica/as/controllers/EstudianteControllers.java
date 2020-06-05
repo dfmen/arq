@@ -288,10 +288,22 @@ public class EstudianteControllers implements Controller {
         model.put("listaEstudiantes", datos);
         System.out.print("T datos:"+datos.size());
         if (datos.size() > 0 && datos2.size() == 0 && res == true && res2 == true)
+        {
             model.put("mensaje", "¡El estudiante es valido!");
+            /*boolean res3 = pDao.crearContrato(p, MySqlDataSource.getConexionBD());
+            if( res3 == true)
+            {
+                model.put("mensaje", "¡El contrato se creo exitosamente!");
+            }
+            else
+            {
+                model.put("mensaje", "El contrato NO se creo.");
+            }*/
+        }    
         else
+        { 
             model.put("mensaje", "El estudiante NO es valido, intente el proximo semestre.");
-        
+        }
         return "monitoria";
     } 
 
