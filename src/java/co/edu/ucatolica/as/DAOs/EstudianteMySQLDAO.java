@@ -196,6 +196,7 @@ public class EstudianteMySQLDAO implements EstudianteDAO{
         Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando validarEstudiante...");
         
         try {
+            //-- Si estudiante ya vio la materia ( RS > 0 )
             Statement s = con.createStatement();
             ResultSet rs = s.executeQuery ("SELECT e.codigo_estudiante"
                     + " FROM estudiante e, estudiante_curso ec, curso c"
@@ -203,12 +204,11 @@ public class EstudianteMySQLDAO implements EstudianteDAO{
                     + " AND ec.codigo_curso = c.codigo_curso"
                     + " AND e.codigo_estudiante = " + p.getCodigo_estudiante()
                     + " AND c.codigo_curso = " + p.getEst_curso());
-           
-            
+
             while (rs.next())
             { 
-                Estudiante per = new Estudiante();
-                per.setCodigo_estudiante(rs.getString(1));                
+                Estudiante per = new Estudiante();           
+                per.setEst_curso(rs.getString(1));
                 
                 datos.add(per);    
             }
@@ -221,5 +221,112 @@ public class EstudianteMySQLDAO implements EstudianteDAO{
         }
         
         return datos;
+    }
+    
+    public ArrayList<Estudiante> validarEstudiante2(Estudiante p, Connection con)
+    {
+        
+        ArrayList<Estudiante> datos2 = new ArrayList();
+        
+        Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando validarEstudiante2...");
+        
+        try {            
+            //-- Si la materia ya tiene monitor ( RS1 == 0 )
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery ("SELECT c.codigo_curso"
+                    + " FROM curso c"
+                    + " WHERE c.codigo_curso = " + p.getEst_curso()
+                    + " AND c.monitor != 0"); 
+
+            while (rs.next())
+            { 
+                Estudiante per = new Estudiante();              
+                per.setEst_curso(rs.getString(1));
+                datos2.add(per);    
+            }
+            
+            Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando validarEstudiante2 fin..." + datos2.size());
+            
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return datos2;
+    }
+    
+    public boolean validarEstudiante3(Estudiante p, Connection con)
+    {
+        
+        boolean respuesta = false;
+        
+        Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando validarEstudiante3...");
+        
+        try {            
+            //-- Si la materia ya tiene monitor ( RS1 > 3.8 )
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery ("SELECT AVG(ec.nota)"
+                    + " FROM estudiante e, estudiante_curso ec"
+                    + " WHERE e.codigo_estudiante = ec.codigo_estudiante"
+                    + " AND e.codigo_estudiante = " + p.getCodigo_estudiante()); 
+
+            while (rs.next())
+            {             
+                if(Double.parseDouble(rs.getString(1)) > 3.8)
+                {
+                    respuesta = true;
+                }
+                else
+                {
+                    respuesta = false;
+                } 
+            }
+            
+            Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando validarEstudiante3 fin..." + respuesta);
+            
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return respuesta;
+    }
+    
+    public boolean validarEstudiante4(Estudiante p, Connection con)
+    {
+        
+        boolean respuesta2 = false;
+        
+        Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando validarEstudiante3...");
+        
+        try {            
+            //-- Si la materia ya tiene monitor ( RS1 < 22 )
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery ("SELECT SUM(c.creditos)"
+                    + " FROM estudiante e, estudiante_curso ec, curso c"
+                    + " WHERE e.codigo_estudiante = ec.codigo_estudiante"
+                    + " AND ec.codigo_curso = c.codigo_curso"
+                    + " AND e.codigo_estudiante =" + p.getCodigo_estudiante()); 
+
+            while (rs.next())
+            {           
+                if(Integer.parseInt(rs.getString(1)) < 22)
+                {
+                    respuesta2 = true;
+                }
+                else
+                {
+                    respuesta2 = false;
+                } 
+            }
+            
+            Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.INFO, "Ejecutando validarEstudiante3 fin..." + respuesta2);
+            
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteMySQLDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return respuesta2;
     }
 }

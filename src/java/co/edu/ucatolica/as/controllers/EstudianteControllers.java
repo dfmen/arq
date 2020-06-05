@@ -274,15 +274,21 @@ public class EstudianteControllers implements Controller {
         p.setCodigo_estudiante(codigo);
         p.setPassword(pass);
         p.setEst_curso(cod_cur);
-            
+        //---Validacion_1
         List<Estudiante> datos = pDao.validarEstudiante(p, MySqlDataSource.getConexionBD());
-
+        //---Validacion_2
+        List<Estudiante> datos2 = pDao.validarEstudiante2(p, MySqlDataSource.getConexionBD());
+        //--Validacion_3
+        boolean res = pDao.validarEstudiante3(p, MySqlDataSource.getConexionBD());
+        //--Validacion_4
+        boolean res2 = pDao.validarEstudiante4(p, MySqlDataSource.getConexionBD());
+        
         Logger.getLogger(EstudianteControllers.class.getName()).log(Level.SEVERE, null, "Validar + " + codigo + "-" + datos.size());
         
         model.put("listaEstudiantes", datos);
         System.out.print("T datos:"+datos.size());
-        if (datos.size() > 0)
-            model.put("mensaje", "¡El estudiante es valido! [" + datos.size() + "]");
+        if (datos.size() > 0 && datos2.size() == 0 && res == true && res2 == true)
+            model.put("mensaje", "¡El estudiante es valido!");
         else
             model.put("mensaje", "El estudiante NO es valido, intente el proximo semestre.");
         
